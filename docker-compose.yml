@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  node:
+    image: node:lts
+    working_dir: /app
+    user: 1000:1000
+    volumes:
+      - ./apps/frontend:/app:rw
+    command: [yarn, serve]
+    ports:
+      - 8080:8080
