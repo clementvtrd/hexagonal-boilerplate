@@ -1,0 +1,15 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    API\:
+        resource: "../src/API/"
+
+    Infrastructure\:
+        resource: '../src/Infrastructure/'
+        exclude:
+            - '../src/Infrastructure/Symfony/DependencyInjection/'
+            - '../src/Infrastructure/Symfony/Kernel.php'

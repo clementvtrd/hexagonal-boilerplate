@@ -1,0 +1,38 @@
+{
+    "name": "symfony/skeleton",
+    "type": "project",
+    "license": "MIT",
+    "description": "A minimal Symfony project recommended to create bare bones applications",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1.0",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "symfony/console": "6.0.*",
+        "symfony/dotenv": "6.0.*",
+        "symfony/framework-bundle": "6.0.*",
+        "symfony/yaml": "6.0.*"
+    },
+    "require-dev": {
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "API\\": "src/API",
+            "Infrastructure\\": "src/Infrastructure",
+            "Domain\\": "src/Domain"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Domain\\Tests\\": "tests/Domain/"
+        }
+    }
+}
