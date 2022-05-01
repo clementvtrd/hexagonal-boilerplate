@@ -1,0 +1,27 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/apps/frontend"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Europe/Paris"
+    target-branch: "development"
+    commit-message:
+      include: scope
+      prefix: "chore: "
+      prefix-development: "chore(dev): "
+    versioning-strategy: "increase"
+  
+  - package-ecosystem: "composer"
+    directory: "/apps/backend"
+    schedule:
+      interval: "daily"
+      time: "08:00"
+      timezone: "Europe/Paris"
+    target-branch: "development"
+    commit-message:
+      include: scope
+      prefix: "chore: "
+      prefix-development: "chore(dev): "
+    versioning-strategy: "increase"
