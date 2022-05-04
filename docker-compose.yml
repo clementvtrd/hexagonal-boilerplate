@@ -1,12 +1,49 @@
 version: "3.8"
 
 services:
+  reverse-proxy:
+    image: traefik:v2.4.7
+    container_name: traefik
+    profiles:
+      - tools
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik=true"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./docker/traefik/dynamic_conf.yaml:/etc/traefik/dynamic_conf.yaml:ro
+      - ./docker/traefik/traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - ./certs:/etc/certs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik
+
   node:
     image: node:lts
     working_dir: /app
     user: 1000:1000
+    container_name: frontend
+    profiles:
+      - stack
     volumes:
       - ./apps/frontend:/app:rw
     command: [yarn, serve]
-    ports:
-      - 8080:8080
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.tls=true"
+      - "traefik.http.routers.frontend.rule=Host(`frontend.app.localhost`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=8080"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
