@@ -10,8 +10,7 @@ const config = {
   },
   devServer: {
     open: true,
-    allowedHosts: 'all'
-    
+    allowedHosts: 'all' 
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -64,3 +63,4 @@ module.exports = () => {
   }
   return config
 }
+
