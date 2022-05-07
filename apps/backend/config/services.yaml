@@ -5,8 +5,8 @@ services:
         autowire: true
         autoconfigure: true
     
-    API\:
-        resource: "../src/API/"
+    Application\:
+        resource: "../src/Application/"
 
     Infrastructure\:
         resource: '../src/Infrastructure/'
