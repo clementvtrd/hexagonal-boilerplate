@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
 const isProduction = process.env.NODE_ENV == 'production'
 
@@ -10,12 +11,16 @@ const config = {
   },
   devServer: {
     open: true,
-    allowedHosts: 'all' 
+    allowedHosts: 'all' ,
+    port: 80
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: 'public/index.html',
-    })
+    }),
+    new webpack.EnvironmentPlugin([
+      'API_HOST'
+    ])
   ],
   module: {
     rules: [
@@ -50,8 +55,10 @@ const config = {
     alias: {
       components: path.resolve(__dirname, 'src/components/'),
       fonts: path.resolve(__dirname, 'src/fonts/'),
-      styles: path.resolve(__dirname, 'src/styles/')
-    }
+      styles: path.resolve(__dirname, 'src/styles/'),
+      hooks: path.resolve(__dirname, 'src/hooks/')
+    },
+    
   },
 }
 
