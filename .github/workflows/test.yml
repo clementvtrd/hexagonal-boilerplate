@@ -2,17 +2,31 @@ name: test
 on:
   - push
 jobs:
-  frontend:
-    runs-on:
-      - self-hosted
+  setup:
+    runs-on: self-hosted
     steps:
       - name: checkout
         uses: actions/checkout@v3
       - name: build
-        run: docker compose build frontend
+        run: docker compose build
+
+  front-lint:
+    name: Frontend - lint
+    needs:
+      - setup
+    runs-on: self-hosted
+    steps:
       - name: install
         run: docker compose run --rm frontend yarn
       - name: type check
         run: docker compose run --rm frontend yarn tsc --noEmit
+
+  front-unit:
+    name: Frontend - unit
+    needs:
+      - front-lint
+    runs-on: self-hosted
+    steps:
       - name: jest
         run: docker compose run --rm frontend yarn test:spec
+    
