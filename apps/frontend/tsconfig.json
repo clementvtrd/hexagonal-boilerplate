@@ -16,5 +16,5 @@
       "styles": ["styles"]
     }
   },
-  "include": ["./src"]
+  "include": ["./src", "test/spec/Main.test.tsx"]
 }

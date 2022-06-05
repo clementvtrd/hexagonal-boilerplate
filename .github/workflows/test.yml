@@ -1,0 +1,18 @@
+name: test
+on:
+  - push
+jobs:
+  frontend:
+    runs-on:
+      - self-hosted
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: build
+        run: docker compose build frontend
+      - name: install
+        run: docker compose run --rm frontend yarn
+      - name: type check
+        run: docker compose run --rm frontend yarn tsc --noEmit
+      - name: jest
+        run: docker compose run --rm frontend yarn test:spec
