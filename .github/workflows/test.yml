@@ -29,4 +29,15 @@ jobs:
     steps:
       - name: jest
         run: docker compose run --rm frontend yarn test:spec
+  
+  back-lint:
+    name: Backend - lint
+    needs:
+      - setup
+    runs-on: self-hosted
+    steps:
+      - name: PHP CS Fixer
+        run: docker compose run --rm php bin/php-cs-fixer fix
+      - name: PHP Stan
+        run: docker compose run --rm php bin/phpstan analyse --level 9 public config src
     

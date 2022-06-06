@@ -12,7 +12,7 @@ class Get
     public function __invoke(Request $request): JsonResponse
     {
         return new JsonResponse([
-            'payload' => 'Hello world!'
+            'payload' => 'Hello world!',
         ]);
     }
 }
