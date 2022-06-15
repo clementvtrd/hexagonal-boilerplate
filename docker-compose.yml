@@ -46,6 +46,7 @@ services:
       - ./apps/backend:/app:ro
     depends_on:
       - php
+      - database
   
   php:
     build:
@@ -54,8 +55,6 @@ services:
     env_file: ./apps/backend/.env
     volumes:
       - ./apps/backend:/app:rw
-    depends_on:
-      - database
   
   database:
     image: mysql:8.0.29
