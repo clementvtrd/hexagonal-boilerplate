@@ -61,9 +61,9 @@ services:
     image: mysql:8.0.29
     command: --default-authentication-plugin=mysql_native_password
     environment:
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
     volumes:
       - mysql:/var/lib/mysql

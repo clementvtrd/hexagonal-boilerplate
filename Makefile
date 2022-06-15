@@ -1,19 +1,29 @@
 .PHONY: install
 install:
 	mkcert -cert-file certs/local-cert.pem -key-file certs/local-key.pem "app.localhost" "*.app.localhost" "domain.local" "*.domain.local"
-	update
+	docker compose build
 
 .PHONY: update
 update:
-	docker compose run --rm node yarn install
+	docker compose run --rm frontend yarn install
+	docker compose run --rm php composer install
 
 .PHONY: start
 start:
-	docker compose --profile stack up -d
-
-.PHONY: start-proxy
-start-proxy:
-	docker compose --profile tools up -d
+	docker compose up -d
 
 .PHONY: stop
-stop: docker compose --profile stack down
+stop:
+	docker compose down
+
+.PHONY: jest
+jest:
+	docker compose run --rm frontend yarn jest test/spec
+
+.PHONY: php-cs-fixer
+php-cs-fixer:
+	docker compose run --rm php bin/php-cs-fixer fix
+
+.PHONY: phpstan
+phpstan:
+	docker compose run --rm php bin/phpstan analyse --level 9 public config src
