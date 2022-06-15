@@ -1,3 +1,8 @@
+## Symfony
 var/
+
+## Composer
 vendor/
+
+## Tools
 .php-cs-fixer.cache
